@@ -5,6 +5,10 @@
 </head>
 <body>
     <h1 style="display: flex; justify-content: center">SNAKE GAME</h1>
+    <p>SCORE: </p>
+    <span id="myScore"></span>
+    <p>HIGH SCORE: </p>
+    <span id="myHighScore"></span>
     <div style="display: flex; justify-content: center">
         <canvas id="stage" width="400" height="400"></canvas>
         <script type="text/javascript">
@@ -24,6 +28,8 @@
             var squareSize = 20;
             var squareQuantity = 20;
             var appleX = appleY = 15;
+            var score = 0;
+            var highScore = 0;
 
             var trail = [];
             tail = 5;
@@ -55,8 +61,16 @@
                     ctx.fillRect(trail[i].x*squareSize, trail[i].y*squareSize, squareSize, squareSize);
                     if (trail[i].x == positionX && trail[i].y == positionY) 
                     {
+                        if (score > highScore) {
+                            highScore = score;
+                            document.getElementById("myHighScore").innerHTML = highScore;
+                        }                        
                         speedX = speedY = 0;
                         tail = 5;   
+                        
+                        score = 0;
+                        document.getElementById("myScore").innerHTML = score;
+
                     }   
                 }
 
@@ -69,6 +83,9 @@
                     tail++;
                     appleX = Math.floor(Math.random()*squareQuantity);
                     appleY = Math.floor(Math.random()*squareQuantity);
+
+                    score++;
+                    document.getElementById("myScore").innerHTML = score;
                 }
             }
 
